@@ -2,7 +2,7 @@
 Shared pytest fixtures and configuration
 
 Fixtures for:
-- Async client setup
+- Async client setup (wired to real FastAPI app)
 - Database fixtures
 - Mock services
 - Test data
@@ -11,19 +11,22 @@ Fixtures for:
 import pytest
 import pytest_asyncio
 from datetime import datetime, timedelta
-from httpx import AsyncClient
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
+from app.main import app
+
 # ============================================================================
-# ASYNC HTTP CLIENT
+# ASYNC HTTP CLIENT (wired to FastAPI app)
 # ============================================================================
 
 @pytest_asyncio.fixture
 async def async_client():
-    """Async HTTP client for testing endpoints"""
+    """Async HTTP client wired to the real FastAPI app."""
 
-    async with AsyncClient(base_url="http://testserver") as client:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://testserver") as client:
         yield client
 
 
@@ -215,20 +218,6 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "unit: Fast unit tests"
     )
-
-
-# ============================================================================
-# ASYNC SETUP
-# ============================================================================
-
-@pytest.fixture
-def event_loop():
-    """Create event loop for async tests"""
-    import asyncio
-
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
 
 
 # ============================================================================
