@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlimited Vibes — Never get fined for a missing #ad again</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:oklch(99% 0.003 30);
+  --surface:oklch(100% 0.002 30);
+  --text:oklch(15% 0.01 30);
+  --text-secondary:oklch(38% 0.008 30);
+  --text-muted:oklch(55% 0.006 30);
+  --border:oklch(91% 0.005 30);
+  --accent:oklch(58% 0.2 25);
+  --accent-hover:oklch(52% 0.22 25);
+  --accent-light:oklch(95% 0.04 25);
+  --green:oklch(50% 0.15 155);
+  --green-light:oklch(94% 0.04 155);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{text-wrap:balance;letter-spacing:-0.03em}
+
+/* Nav */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:oklch(99% 0.003 30 / 0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-weight:800;font-size:1.1rem;letter-spacing:-0.04em;color:var(--accent)}
+.nav-cta{
+  background:var(--accent);color:#fff;
+  font-weight:600;font-size:0.85rem;
+  padding:10px 20px;border-radius:8px;border:none;
+  cursor:pointer;text-decoration:none;
+  transition:background 200ms var(--ease),transform 150ms var(--ease);
+}
+.nav-cta:hover{background:var(--accent-hover);transform:translateY(-1px)}
+
+/* Hero */
+.hero{
+  max-width:880px;margin:0 auto;
+  padding:96px 32px 80px;
+  text-align:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent-light);color:var(--accent);
+  font-size:0.78rem;font-weight:700;
+  padding:6px 14px;border-radius:20px;
+  margin-bottom:24px;
+  text-transform:uppercase;letter-spacing:0.05em;
+}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
+.hero h1{
+  font-size:clamp(2.4rem,5.5vw,3.8rem);
+  font-weight:800;line-height:1.08;
+  margin-bottom:20px;
+}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--text-secondary);
+  max-width:600px;margin:0 auto 36px;
+  line-height:1.6;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  font-weight:700;font-size:1.05rem;
+  padding:16px 32px;border-radius:10px;border:none;
+  cursor:pointer;text-decoration:none;
+  transition:background 200ms var(--ease),transform 150ms var(--ease),box-shadow 200ms var(--ease);
+  box-shadow:0 4px 24px oklch(58% 0.2 25 / 0.2);
+}
+.hero-cta:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 32px oklch(58% 0.2 25 / 0.3)}
+.hero-note{font-size:0.8rem;color:var(--text-muted);margin-top:14px}
+
+/* Demo section */
+.demo{
+  max-width:760px;margin:0 auto;
+  padding:0 32px 96px;
+}
+.demo-window{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 40px oklch(0% 0 0 / 0.05);
+}
+.demo-bar{
+  background:oklch(96% 0.004 30);
+  padding:12px 18px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid var(--border);
+}
+.demo-dot{width:10px;height:10px;border-radius:50%;background:oklch(85% 0.005 30)}
+.demo-content{padding:32px}
+.demo-input{
+  width:100%;padding:16px 18px;
+  border:1px solid var(--border);border-radius:8px;
+  font-family:inherit;font-size:0.9rem;
+  color:var(--text-secondary);
+  background:var(--bg);
+  margin-bottom:16px;
+  resize:none;min-height:80px;
+}
+.demo-result{
+  background:var(--green-light);
+  border:1px solid oklch(85% 0.06 155);
+  border-radius:8px;padding:18px 20px;
+  display:flex;align-items:center;gap:14px;
+}
+.demo-score{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--green);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1.1rem;flex-shrink:0;
+}
+.demo-result-text h3{font-size:0.9rem;font-weight:700;color:var(--green);margin-bottom:2px}
+.demo-result-text p{font-size:0.8rem;color:var(--text-secondary)}
+
+/* Features */
+.features{
+  max-width:960px;margin:0 auto;
+  padding:0 32px 96px;
+}
+.features-title{
+  text-align:center;
+  font-size:clamp(1.5rem,3vw,2.2rem);
+  font-weight:800;margin-bottom:48px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+.feature{padding:28px 24px;border-radius:12px;background:var(--surface);border:1px solid var(--border)}
+.feature-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;margin-bottom:14px;
+}
+.fi-orange{background:var(--accent-light)}
+.fi-green{background:var(--green-light)}
+.fi-blue{background:oklch(93% 0.04 250)}
+.feature h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.feature p{font-size:0.85rem;color:var(--text-secondary);line-height:1.6}
+
+/* Social proof */
+.proof{
+  max-width:700px;margin:0 auto;
+  padding:0 32px 96px;text-align:center;
+}
+.proof-stats{
+  display:flex;justify-content:center;gap:48px;
+  margin-bottom:32px;flex-wrap:wrap;
+}
+.proof-stat{display:flex;flex-direction:column;align-items:center}
+.proof-stat-number{font-size:2rem;font-weight:800;color:var(--accent)}
+.proof-stat-label{font-size:0.78rem;color:var(--text-muted)}
+.proof-quote{
+  font-size:1.1rem;font-weight:500;
+  color:var(--text-secondary);
+  font-style:italic;
+  max-width:550px;margin:0 auto 12px;
+}
+.proof-author{font-size:0.8rem;color:var(--text-muted)}
+
+/* Pricing */
+.pricing{
+  max-width:900px;margin:0 auto;
+  padding:0 32px 96px;
+}
+.pricing-title{text-align:center;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:12px}
+.pricing-sub{text-align:center;font-size:0.95rem;color:var(--text-secondary);margin-bottom:40px}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+.plan{
+  padding:28px 24px;border-radius:12px;
+  border:1px solid var(--border);background:var(--surface);
+  display:flex;flex-direction:column;
+}
+.plan.featured{border-color:var(--accent);border-width:2px;position:relative}
+.plan-badge{
+  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#fff;
+  font-size:0.65rem;font-weight:700;
+  padding:3px 10px;border-radius:10px;
+  text-transform:uppercase;letter-spacing:0.04em;
+}
+.plan-name{font-weight:700;font-size:1rem;margin-bottom:4px}
+.plan-price{font-size:2rem;font-weight:800;margin-bottom:4px}
+.plan-price span{font-size:0.85rem;font-weight:400;color:var(--text-muted)}
+.plan-desc{font-size:0.78rem;color:var(--text-muted);margin-bottom:18px;line-height:1.5}
+.plan-features{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+  margin-bottom:24px;flex:1;
+}
+.plan-features li{
+  font-size:0.82rem;color:var(--text-secondary);
+  padding-left:20px;position:relative;
+}
+.plan-features li::before{
+  content:'\2713';position:absolute;left:0;color:var(--green);font-weight:700;font-size:0.75rem;
+}
+.plan-cta{
+  display:block;text-align:center;
+  padding:12px;border-radius:8px;
+  font-weight:600;font-size:0.85rem;
+  text-decoration:none;
+  transition:background 200ms var(--ease),transform 150ms var(--ease);
+}
+.plan-cta-primary{background:var(--accent);color:#fff}
+.plan-cta-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.plan-cta-secondary{background:oklch(95% 0.005 30);color:var(--text)}
+.plan-cta-secondary:hover{background:oklch(92% 0.005 30)}
+
+/* CTA bottom */
+.cta-bottom{
+  max-width:700px;margin:0 auto;
+  padding:0 32px 96px;text-align:center;
+}
+.cta-bottom h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;margin-bottom:16px}
+.cta-bottom p{font-size:1rem;color:var(--text-secondary);margin-bottom:28px}
+
+/* Footer */
+footer{
+  max-width:960px;margin:0 auto;
+  padding:32px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+footer span{font-size:0.78rem;color:var(--text-muted)}
+footer a{font-size:0.78rem;color:var(--text-muted);text-decoration:none}
+footer a:hover{color:var(--text)}
+
+@media(max-width:640px){
+  .hero{padding:64px 20px 56px}
+  .proof-stats{gap:28px}
+  nav{padding:14px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">unlimited vibes</span>
+  <a href="#pricing" class="nav-cta">Get Free Access</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge"><span class="hero-badge-dot"></span> Free beta, 10 spots left</div>
+  <h1>Never get fined for a missing <em>#ad</em> again.</h1>
+  <p class="hero-sub">Unlimited Vibes scans your posts before you publish and catches FTC violations, missing disclosures, and risky health claims in 2 seconds flat.</p>
+  <a href="#pricing" class="hero-cta">Start Scanning Free &#8594;</a>
+  <p class="hero-note">No credit card required. Set up in 30 seconds.</p>
+</section>
+
+<!-- Demo -->
+<section class="demo">
+  <div class="demo-window">
+    <div class="demo-bar">
+      <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+    </div>
+    <div class="demo-content">
+      <textarea class="demo-input" readonly>Love this new skincare line! Use code GLOW20 for 20% off. It literally cured my acne in a week &#128588;</textarea>
+      <div class="demo-result">
+        <div class="demo-score">62</div>
+        <div class="demo-result-text">
+          <h3>2 Issues Found</h3>
+          <p>Missing #ad disclosure on affiliate content. Unsubstantiated health claim ("cured my acne"). Fix both to publish safely.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+  <h2 class="features-title">What it catches (so the FTC doesn't).</h2>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon fi-orange">&#127991;</div>
+      <h3>Missing Disclosures</h3>
+      <p>Detects sponsored content, affiliate links, and gifted products that need #ad, #sponsored, or platform disclosure tags.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon fi-green">&#129514;</div>
+      <h3>Health Claims</h3>
+      <p>Flags "cures", "treats", "prevents" and other claims that violate FTC health marketing rules.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon fi-blue">&#127759;</div>
+      <h3>GDPR + CCPA</h3>
+      <p>Checks if you're collecting data from EU/California audiences without proper privacy disclosures.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon fi-orange">&#128241;</div>
+      <h3>Platform Rules</h3>
+      <p>Knows Instagram, TikTok, YouTube, and Twitter policies. Different platforms, different rules, one scan.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon fi-green">&#128202;</div>
+      <h3>Compliance Score</h3>
+      <p>Build a score over time that proves to brands you're a safe partnership. Higher score, bigger deals.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon fi-blue">&#9889;</div>
+      <h3>2-Second Results</h3>
+      <p>Paste your caption, get instant feedback. No waiting, no back-and-forth with lawyers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof -->
+<section class="proof">
+  <div class="proof-stats">
+    <div class="proof-stat">
+      <span class="proof-stat-number">50M+</span>
+      <span class="proof-stat-label">Creators at risk</span>
+    </div>
+    <div class="proof-stat">
+      <span class="proof-stat-number">$50K</span>
+      <span class="proof-stat-label">Avg. FTC fine</span>
+    </div>
+    <div class="proof-stat">
+      <span class="proof-stat-number">87%</span>
+      <span class="proof-stat-label">Don't know the rules</span>
+    </div>
+  </div>
+  <p class="proof-quote">"I had no idea my discount code posts needed #ad. This would've saved me a warning letter from the FTC."</p>
+  <span class="proof-author">&#8212; Beta creator, 180K followers on Instagram</span>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <h2 class="pricing-title">Simple pricing. Cancel anytime.</h2>
+  <p class="pricing-sub">Start free during beta. Upgrade when you're ready.</p>
+  <div class="pricing-grid">
+    <div class="plan">
+      <span class="plan-name">Free Beta</span>
+      <span class="plan-price">$0<span>/mo</span></span>
+      <span class="plan-desc">Try it out. Limited spots available.</span>
+      <ul class="plan-features">
+        <li>10 scans per month</li>
+        <li>FTC compliance checks</li>
+        <li>Basic compliance score</li>
+        <li>Instagram + TikTok</li>
+      </ul>
+      <a href="mailto:antavisforeman0@gmail.com?subject=Beta%20access%20please!&body=Hey!%20I'd%20love%20to%20try%20Unlimited%20Vibes.%20My%20Instagram%20is:%20" class="plan-cta plan-cta-secondary">Request Access</a>
+    </div>
+    <div class="plan featured">
+      <span class="plan-badge">Most Popular</span>
+      <span class="plan-name">Pro</span>
+      <span class="plan-price">$99<span>/mo</span></span>
+      <span class="plan-desc">Everything you need to stay compliant.</span>
+      <ul class="plan-features">
+        <li>Unlimited scans</li>
+        <li>FTC + GDPR + CCPA</li>
+        <li>All platforms</li>
+        <li>Real-time monitoring</li>
+        <li>Compliance score for brands</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="mailto:antavisforeman0@gmail.com?subject=Pro%20plan%20signup&body=I%20want%20to%20upgrade%20to%20Pro!%20My%20Instagram%20is:%20" class="plan-cta plan-cta-primary">Get Pro</a>
+    </div>
+    <div class="plan">
+      <span class="plan-name">Agency</span>
+      <span class="plan-price">$299<span>/mo</span></span>
+      <span class="plan-desc">Manage compliance across your roster.</span>
+      <ul class="plan-features">
+        <li>Everything in Pro</li>
+        <li>Multi-creator dashboard</li>
+        <li>White-label reports</li>
+        <li>Equity/cap table tools</li>
+        <li>API access</li>
+        <li>Dedicated account rep</li>
+      </ul>
+      <a href="mailto:antavisforeman0@gmail.com?subject=Agency%20plan%20inquiry&body=I%20manage%20multiple%20creators%20and%20want%20to%20learn%20about%20Agency.%20" class="plan-cta plan-cta-secondary">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta-bottom">
+  <h2>Your next post is one scan away from safe.</h2>
+  <p>Join the beta. Protect your income. Never worry about compliance again.</p>
+  <a href="mailto:antavisforeman0@gmail.com?subject=Beta%20access%20please!&body=Hey!%20I'd%20love%20to%20try%20Unlimited%20Vibes.%20My%20Instagram%20is:%20" class="hero-cta">Get Free Access &#8594;</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span>&copy; 2026 Unlimited Vibes, Inc.</span>
+  <span>
+    <a href="#">Privacy Policy</a> &middot;
+    <a href="#">Terms</a> &middot;
+    <a href="mailto:antavisforeman0@gmail.com">Contact</a>
+  </span>
+</footer>
+
+</body>
+</html>
